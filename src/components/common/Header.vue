@@ -30,12 +30,6 @@
                         {{username}} <i class="el-icon-caret-bottom"></i>
                     </span>
                     <el-dropdown-menu slot="dropdown">
-                        <a href="http://blog.gdfengshuo.com/about/" target="_blank">
-                            <el-dropdown-item>关于作者</el-dropdown-item>
-                        </a>
-                        <a href="https://github.com/lin-xin/vue-manage-system" target="_blank">
-                            <el-dropdown-item>项目仓库</el-dropdown-item>
-                        </a>
                         <el-dropdown-item divided  command="loginout">退出登录</el-dropdown-item>
                     </el-dropdown-menu>
                 </el-dropdown>
@@ -44,6 +38,7 @@
     </div>
 </template>
 <script>
+    import { mapGetters, mapActions } from 'vuex'
     import bus from '../common/bus';
     export default {
         data() {
@@ -55,17 +50,19 @@
             }
         },
         computed:{
-            username(){
-                let username = localStorage.getItem('ms_username');
-                return username ? username : this.name;
-            }
+            ...mapGetters(['username']),
         },
         methods:{
+            ...mapActions(['logOut']),
             // 用户名下拉菜单选择事件
             handleCommand(command) {
                 if(command == 'loginout'){
-                    localStorage.removeItem('ms_username')
-                    this.$router.push('/login');
+                    this.logOut().then(() => {
+                        localStorage.removeItem('role')
+                        this.$router.push('/login');
+                    })
+                    .catch();
+                    
                 }
             },
             // 侧边栏折叠
