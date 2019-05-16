@@ -29,8 +29,10 @@ service.interceptors.request.use(
 // response 拦截器
 service.interceptors.response.use(
   response => {
+    if (response.config.method === 'options') {
+      return response
+    }
     // store.state.show_loading = false
-
     if (response.data.code !== 200) {
       Message({
         message: response.data.msg,
@@ -64,4 +66,21 @@ service.interceptors.response.use(
   }
 )
 
-export default service
+/**
+ * 使用es6中的类，进行简单封装
+ * 地址为mock时请求本地json文件，全部使用get方式
+ */
+class http {
+  // 使用async ... await
+  static async get(url, params) {
+    // console.log(params)
+    return await service.get(url, {params}) 
+  }
+  static async post(url, params) {
+    // console.log(params)
+    return await service.post(url, params);
+  }
+}
+
+
+export default http;

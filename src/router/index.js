@@ -3,8 +3,6 @@ import Router from 'vue-router';
 
 Vue.use(Router);
 
-
-
 export const constantRouterMap = [
     {
         path: '/',
@@ -50,8 +48,6 @@ export const mainRouterMap = [{
         
     ]
 }]
-
-
 
 
 export default new Router({

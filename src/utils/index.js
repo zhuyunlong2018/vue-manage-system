@@ -1,6 +1,7 @@
 
 
 
+//递归构建vue-router
 export function toRoutes(menus) {
     const userRouters = []
     menus.forEach(menu => {
