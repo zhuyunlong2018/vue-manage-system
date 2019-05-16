@@ -3,6 +3,68 @@ import Router from 'vue-router';
 
 Vue.use(Router);
 
+
+
+export const constantRouterMap = [
+    {
+        path: '/',
+        redirect: '/dashboard'
+    },
+    {
+        path: '/login',
+        component: resolve => require(['../components/page/Login.vue'], resolve)
+    },
+    {
+        path: '*',
+        redirect: '/404'
+    },
+    {
+        path: '/',
+        component: resolve => require(['../components/common/Home.vue'], resolve),
+        meta: { title: '自述文件' },
+        children:[
+            {
+                path: '/dashboard',
+                component: resolve => require(['../components/page/Dashboard.vue'], resolve),
+                meta: { title: '系统首页' }
+            },
+            {
+                path: '/404',
+                component: resolve => require(['../components/page/404.vue'], resolve),
+                meta: { title: '404' }
+            },
+            {
+                path: '/403',
+                component: resolve => require(['../components/page/403.vue'], resolve),
+                meta: { title: '403' }
+            }
+        ]
+    }
+]
+
+export const mainRouterMap = [{
+    path: '/',
+    component: resolve => require(['../components/common/Home.vue'], resolve),
+    meta: { title: '自述文件' },
+    children:[
+        
+    ]
+}]
+
+
+
+
+export default new Router({
+    // mode: 'history', // require service support
+    scrollBehavior: () => ({ y: 0 }),
+    routes: constantRouterMap
+  })
+
+
+
+
+
+/*
 export default new Router({
     routes: [
         {
@@ -109,3 +171,5 @@ export default new Router({
         }
     ]
 })
+
+*/

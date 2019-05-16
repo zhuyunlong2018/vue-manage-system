@@ -58,7 +58,7 @@ export default {
     handleLogin() {
       this.login(this.ruleForm)
         .then(() => {
-            localStorage.setItem('role', 'admin');
+          localStorage.setItem('role', 'admin');
           this.$router.push("/")
         })
         .catch();

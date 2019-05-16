@@ -1,8 +1,8 @@
 import axios from 'axios'
-import store from '../store'
+import store from '@/store'
+import router from '@/router'
 import { getToken } from '@/utils/auth'
 import { Message } from 'element-ui'
-import router from '../router'
 // 创建axios实例
 const service = axios.create({
   // baseURL: process.env.BASE_API, // api 的 base_url
@@ -37,6 +37,13 @@ service.interceptors.response.use(
         type: 'error',
         duration: 5 * 1000
       })
+
+      if(response.data.code === 410) {
+        store.dispatch('logOut').then(()=>{
+          router.push('/login')
+        })
+      }
+
       return Promise.reject(response)
     } 
     Message({

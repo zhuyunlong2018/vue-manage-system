@@ -1,7 +1,6 @@
 import { login } from '@/api/login'
 import { getToken, setToken, removeToken } from '@/utils/auth'
 import { getStorage, setStorage, removeStorage } from '@/utils/storage'
-
 const user = {
   state: {
     username: getStorage('user') ? (getStorage('user')) : '',
