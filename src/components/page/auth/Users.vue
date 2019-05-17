@@ -7,11 +7,10 @@
         </div>
         <div class="container">
             <div class="handle-box">
-                <el-button type="primary" icon="add" @click="handleAdd">添加用户</el-button>
+                <el-button type="primary" icon="add" class="handle-del mr10" @click="handleAdd">添加用户</el-button>
                 <el-input v-model="select_word" placeholder="筛选关键词" class="handle-input mr10"></el-input>
             </div>
             <el-table :data="data" border class="table" ref="multipleTable" @selection-change="handleSelectionChange">
-                <el-table-column type="selection" width="55" align="center"></el-table-column>
                 <el-table-column prop="id" label="id" width="70" sortable>
                 </el-table-column>
                 <el-table-column prop="name" label="用户名" width="120">

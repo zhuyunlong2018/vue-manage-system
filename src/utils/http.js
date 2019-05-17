@@ -3,6 +3,12 @@ import store from '@/store'
 import router from '@/router'
 import { getToken } from '@/utils/auth'
 import { Message } from 'element-ui'
+
+/**
+ * http 请求封装库
+ */
+
+
 // 创建axios实例
 const service = axios.create({
   // baseURL: process.env.BASE_API, // api 的 base_url

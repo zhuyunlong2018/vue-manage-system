@@ -1,3 +1,6 @@
+/**
+ * 本地存储工具库
+ */
 export function getStorage(key) {
   const obj = window.localStorage.getItem(key)
   return JSON.parse(obj)
