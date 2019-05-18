@@ -152,7 +152,6 @@ import { getMenus, add, edit } from '@/api/menu'
             },
             // 保存编辑
             saveEdit() {
-                console.log(this.idx)
                 if (this.form.id > 0) {
                     //编辑
                     edit(this.form).then(response => {
@@ -162,6 +161,7 @@ import { getMenus, add, edit } from '@/api/menu'
                 } else {
                     //添加
                     add(this.form).then(response => {
+                        this.form.id = response
                         this.editVisible = false;
                         this.tableData.push(this.form)
                     })

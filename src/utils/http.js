@@ -11,8 +11,8 @@ import { Message } from 'element-ui'
 
 // 创建axios实例
 const service = axios.create({
-  // baseURL: process.env.BASE_API, // api 的 base_url
   baseURL: "http://192.168.136.129:9502/", // api 的 base_url
+  // baseURL: "http://www.ahlww.cn/", // api 的 base_url
   timeout: 5000 // 请求超时时间
 })
 

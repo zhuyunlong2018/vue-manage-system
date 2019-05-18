@@ -143,7 +143,10 @@ import { makeChildren, findParents, deepClone } from '@/utils'
             handleEdit(index, row) {
                 this.editVisible = true;
                 this.getMenus()
-                const ids = findParents(this.tableData, row.id,)
+                let ids = findParents(this.tableData, row.pid,)
+                if (ids.length === 0) {
+                    ids = ['0']
+                }
                 this.idx = index;
                 this.form = {
                     id: row.id,
@@ -161,18 +164,29 @@ import { makeChildren, findParents, deepClone } from '@/utils'
             handleSelectionChange(val) {
                 this.multipleSelection = val
             },
+            getGroupNameByGroupId(groupId) {
+                for(const element of this.tableData) {
+                    if (groupId == element.id) {
+                        return element.name
+                    }
+                }
+            },
             // 保存编辑
             saveEdit() {
+                this.form.pid = this.form.selectedOptions[this.form.selectedOptions.length-1]
                 this.form.menus = this.$refs.tree.getCheckedKeys()
                 if (this.form.id > 0) {
                     //编辑
                     edit(this.form).then(response => {
+                        this.form.p_name = this.getGroupNameByGroupId(this.form.pid)
                         this.$set(this.tableData, this.idx, this.form)
                         this.editVisible = false
                     })
                 } else {
                     //添加
                     add(this.form).then(response => {
+                        this.form.id = response
+                        this.form.p_name = this.getGroupNameByGroupId(this.form.pid)
                         this.tableData.push(this.form)
                         this.editVisible = false
                     })

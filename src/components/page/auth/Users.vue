@@ -26,13 +26,14 @@
         </div>
 
         <!-- 编辑弹出框 -->
-        <el-dialog title="编辑" :visible.sync="editVisible" width="30%">
+        <el-dialog title="添加/编辑" :visible.sync="editVisible" width="30%">
             <el-form ref="form" :model="form" label-width="100px">
                 <el-form-item label="用户名">
                     <el-input v-model="form.name"></el-input>
                 </el-form-item>
-                <el-form-item label="所属组名">
-                    <el-input v-model="form.group_name"></el-input>
+                <el-form-item label="上级组名">
+                    <el-cascader :options="options" expand-trigger="hover" v-model="form.selectedOptions" change-on-select
+                    ></el-cascader>
                 </el-form-item>
                 <el-form-item label="状态">
                     <el-radio-group v-model="form.status">
@@ -60,6 +61,8 @@
 
 <script>
 import { getUsers, edit, add } from '@/api/user'
+import { getGroups } from '@/api/group'
+import { makeChildren, findParents, deepClone } from '@/utils'
     export default {
         name: 'basetable',
         data() {
@@ -70,11 +73,18 @@ import { getUsers, edit, add } from '@/api/user'
                 editVisible: false,
                 delVisible: false,
                 form: {},
-                idx: -1
+                idx: -1,
+                groupData: [],
+                options: [],
+                defaultProps: {
+                    children: 'children',
+                    label: 'label'
+                }
             }
         },
         created() {
-            this.getData();
+            this.getData()
+            this.getGroups()
             this.resetForm()
         },
         computed: {
@@ -93,13 +103,31 @@ import { getUsers, edit, add } from '@/api/user'
                     this.tableData = response
                 })
             },
+            getGroups() {
+                getGroups().then(response => {
+                    this.groupData = response
+                    //将所有的分组整理为按层级数据
+                    const options = makeChildren(deepClone(response), 0, data => {
+                        const newData = {
+                            value: data.id,
+                            label: data.name
+                        }
+                        if (data.children instanceof Array && data.children.length > 0) {
+                            newData.children = data.children
+                        }
+                        return newData
+                    })
+                    this.options = this.options.concat(options)
+                })
+            },
             resetForm() {
                 this.form = {
                     id: 0,
                     name: '',
                     group_id: 0,
                     group_name: '',
-                    status: 1
+                    status: 1,
+                    selectedOptions: ['0']
                 }
                 this.idx = -1
             },
@@ -109,12 +137,13 @@ import { getUsers, edit, add } from '@/api/user'
             },
             handleEdit(index, row) {
                 this.idx = index;
-                console.log(row)
+                const ids = findParents(this.groupData, row.group_id,)
                 this.form = {
                     id: row.id,
                     name: row.name,
                     group_name: row.group_name,
-                    status: row.status
+                    status: row.status,
+                    selectedOptions: ids
                 }
                 this.editVisible = true;
             },
@@ -125,17 +154,28 @@ import { getUsers, edit, add } from '@/api/user'
             handleSelectionChange(val) {
                 this.multipleSelection = val
             },
+            getGroupNameByGroupId(groupId) {
+                for(const element of this.groupData) {
+                    if (groupId == element.id) {
+                        return element.name
+                    }
+                }
+            },
             // 保存编辑
             saveEdit() {
+                this.form.group_id = this.form.selectedOptions[this.form.selectedOptions.length-1]
                 if (this.form.id > 0) {
                     //编辑
                     edit(this.form).then(response => {
+                        this.form.group_name = this.getGroupNameByGroupId(this.form.group_id)
                         this.$set(this.tableData, this.idx, this.form)
                         this.editVisible = false
                     })
                 } else {
                     //添加
                     add(this.form).then(response => {
+                        this.form.id = response
+                        this.form.group_name = this.getGroupNameByGroupId(this.form.group_id)
                         this.tableData.push(this.form)
                         this.editVisible = false
                     })
