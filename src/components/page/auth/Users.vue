@@ -119,6 +119,9 @@ import { makeChildren, findParents, deepClone } from '@/utils'
                     })
                     this.options = this.options.concat(options)
                 })
+                .catch(error => {
+                    console.log(error)
+                })
             },
             resetForm() {
                 this.form = {
@@ -171,6 +174,9 @@ import { makeChildren, findParents, deepClone } from '@/utils'
                         this.$set(this.tableData, this.idx, this.form)
                         this.editVisible = false
                     })
+                    .catch(error => {
+                        console.log(error)
+                    })
                 } else {
                     //添加
                     add(this.form).then(response => {
@@ -178,6 +184,9 @@ import { makeChildren, findParents, deepClone } from '@/utils'
                         this.form.group_name = this.getGroupNameByGroupId(this.form.group_id)
                         this.tableData.push(this.form)
                         this.editVisible = false
+                    })
+                    .catch(error => {
+                        console.log(error)
                     })
                 }
             },

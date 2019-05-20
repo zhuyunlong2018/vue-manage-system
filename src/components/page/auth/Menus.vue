@@ -111,6 +111,9 @@ import { getMenus, add, edit } from '@/api/menu'
                 getMenus().then(response => {
                     this.tableData = response
                 })
+                .catch(error => {
+                    console.log(error)
+                })
             },
             resetForm() {
                 this.form = {
@@ -158,12 +161,18 @@ import { getMenus, add, edit } from '@/api/menu'
                         this.editVisible = false;
                         this.$set(this.tableData, this.idx, this.form);
                     })
+                    .catch(error => {
+                        console.log(error)
+                    })
                 } else {
                     //添加
                     add(this.form).then(response => {
                         this.form.id = response
                         this.editVisible = false;
                         this.tableData.push(this.form)
+                    })
+                    .catch(error => {
+                        console.log(error)
                     })
                 }
             

@@ -52,7 +52,7 @@ service.interceptors.response.use(
         })
       }
 
-      return Promise.reject(response)
+      return Promise.reject(response.data)
     } 
     Message({
       message: response.data.msg,

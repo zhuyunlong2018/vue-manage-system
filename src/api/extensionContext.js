@@ -9,3 +9,5 @@ export const add = params => http.post('Admin/Extension/add', params)
 //修改一个推广内容
 export const edit = params => http.post('Admin/Extension/edit', params)
 
+//修改一个推广内容的状态
+export const changeStatus = params => http.post('Admin/Extension/changeStatus', params)

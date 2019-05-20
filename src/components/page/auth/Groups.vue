@@ -182,6 +182,9 @@ import { makeChildren, findParents, deepClone } from '@/utils'
                         this.$set(this.tableData, this.idx, this.form)
                         this.editVisible = false
                     })
+                    .catch(error => {
+                        console.log(error)
+                    })
                 } else {
                     //添加
                     add(this.form).then(response => {
@@ -189,6 +192,9 @@ import { makeChildren, findParents, deepClone } from '@/utils'
                         this.form.p_name = this.getGroupNameByGroupId(this.form.pid)
                         this.tableData.push(this.form)
                         this.editVisible = false
+                    })
+                    .catch(error => {
+                        console.log(error)
                     })
                 }
             },
@@ -214,6 +220,9 @@ import { makeChildren, findParents, deepClone } from '@/utils'
                         }
                         return newData
                     }, 'id', 'father_id')
+                })
+                .catch(error => {
+                    console.log(error)
                 })
             },
             setChecked(arr=[]) {
