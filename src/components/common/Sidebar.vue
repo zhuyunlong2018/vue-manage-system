@@ -4,24 +4,26 @@
             text-color="#bfcbd9" active-text-color="#20a0ff" unique-opened router>
             <template v-for="(menu,index) in menus">
                 <template v-if="menu.children.length">
-                    <el-submenu :index="menu.path?emnu.path:index.toString()" :key="menu.id">
+                    <el-submenu :index="menu.path?menu.path:index.toString()" :key="menu.id">
                         <template slot="title">
                             <i :class="menu.icon"></i><span slot="title">{{ menu.title }}</span>
                         </template>
                         <template v-for="(subMenu,_index) in menu.children">
                             <el-submenu v-if="subMenu.children.length" :index="subMenu.path?subMenu.path:index.toString()+_index.toString()" :key="subMenu.id">
                                 <template slot="title">{{ subMenu.title }}</template>
-                                <el-menu-item v-for="(threeItem,i) in subMenu.children" :key="threeItem.id" :index="threeItem.path?threeItem.path:index.toString()+_index.toString()+i.toString()">
-                                    {{ threeItem.title }}
-                                </el-menu-item>
+                                <template v-for="(threeItem,i) in subMenu.children">
+                                    <el-menu-item v-if="menuIds.indexOf(threeItem.id)>-1" :key="threeItem.id"  :index="threeItem.path?threeItem.path:index.toString()+_index.toString()+i.toString()">
+                                        {{ threeItem.title }}
+                                    </el-menu-item>
+                                </template>
                             </el-submenu>
-                            <el-menu-item v-else :index="subMenu.path?subMenu.path:index.toString()+_index.toString()" :key="subMenu.id">
+                            <el-menu-item v-else-if="menuIds.indexOf(subMenu.id)>-1" :index="subMenu.path?subMenu.path:index.toString()+_index.toString()" :key="subMenu.id">
                                 {{ subMenu.title }}
                             </el-menu-item>
                         </template>
                     </el-submenu>
                 </template>
-                <template v-else>
+                <template v-else-if="menuIds.indexOf(menu.id)>-1">
                     <el-menu-item :index="menu.path?menu.path:index.toString()" :key="menu.id">
                         <i :class="menu.icon"></i><span slot="title">{{ menu.title }}</span>
                     </el-menu-item>
@@ -42,7 +44,7 @@
             }
         },
         computed:{
-            ...mapGetters(['menus']),
+            ...mapGetters(['menus','menuIds']),
             onRoutes(){
                 return this.$route.path.replace('/','');
             }

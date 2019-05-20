@@ -8,6 +8,7 @@ const permission = {
     routers: [],
     addRouters: [],
     menus: [],
+    menuIds: []
   },
   mutations: {
     SET_ROUTERS: (state, routers) => {
@@ -16,6 +17,9 @@ const permission = {
     },
     SET_MENUS: (state, menus) => {
       state.menus = menus
+    },
+    SET_MENU_IDS: (state, menuIds) => {
+      state.menuIds = menuIds
     }
   },
   actions: {
@@ -25,6 +29,7 @@ const permission = {
           const userRouter = toRoutes(response.routers)
           commit('SET_ROUTERS', userRouter)
           commit('SET_MENUS', response.menus)
+          commit('SET_MENU_IDS', response.menuIds)
           resolve()
         }).catch(error => {
           reject(error)

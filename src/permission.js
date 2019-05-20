@@ -33,6 +33,9 @@ router.beforeEach((to, from, next) => {
             next({ ...to, replace: true })
           }
         })
+        .catch(error => {
+          
+        })
       } else {
         next()
       }
