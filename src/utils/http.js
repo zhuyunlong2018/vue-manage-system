@@ -74,7 +74,6 @@ service.interceptors.response.use(
 
 /**
  * 使用es6中的类，进行简单封装
- * 地址为mock时请求本地json文件，全部使用get方式
  */
 class http {
   // 使用async ... await
