@@ -10,7 +10,7 @@
                 <el-button type="primary" icon="add" class="handle-del mr10" @click="handleAdd">添加菜单</el-button>
                 <el-input v-model="select_word" placeholder="筛选关键词" class="handle-input mr10"></el-input>
             </div>
-            <el-table :data="data" border class="table" ref="multipleTable" @selection-change="handleSelectionChange">
+            <el-table :data="data" border class="table" v-loading="loading" ref="multipleTable" @selection-change="handleSelectionChange">
                 <el-table-column prop="id" label="id" width="70" sortable>
                 </el-table-column>
                 <el-table-column prop="father_id" width="70" label="上级id" sortable ></el-table-column>
@@ -73,145 +73,7 @@
 </template>
 
 <script>
-import { getMenus, add, edit } from '@/api/menu'
-    export default {
-        name: 'basetable',
-        data() {
-            return {
-                tableData: [],
-                multipleSelection: [],
-                select_cate: '',
-                select_word: '',
-                editVisible: false,
-                delVisible: false,
-                form: {},
-                idx: -1
-            }
-        },
-        created() {
-            this.getData();
-            this.resetForm()
-        },
-        computed: {
-            data() {
-                return this.tableData.filter((d) => {
-                    let filterPath = false;
-                    if (d.path) {
-                        filterPath = d.path.indexOf(this.select_word) > -1 
-                    }
-                    if (d.title.indexOf(this.select_word) > -1 || filterPath ) {
-                        return d;
-                    }
-                })
-            }
-        },
-        methods: {
-            // 获取数据
-            getData() {
-                getMenus().then(response => {
-                    this.tableData = response
-                })
-                .catch(error => {
-                    console.log(error)
-                })
-            },
-            resetForm() {
-                this.form = {
-                    id: 0,
-                    title: '',
-                    father_id: 0,
-                    path: '',
-                    component: '',
-                    icon: 'el-icon-lx-cascades',
-                    sort: 0,
-                    status: 1
-                }
-                this.idx = -1
-            },
-            handleAdd() {
-                this.resetForm();
-                this.editVisible = true;
-            },
-            handleEdit(index, row) {
-                this.idx = index;
-                this.form = {
-                    id: row.id,
-                    title: row.title,
-                    father_id: row.father_id,
-                    path: row.path,
-                    component: row.component,
-                    icon: row.icon,
-                    sort: row.sort,
-                    status: row.status
-                }
-                this.editVisible = true;
-            },
-            handleDelete(index, row) {
-                this.idx = index;
-                this.delVisible = true;
-            },
-            handleSelectionChange(val) {
-                this.multipleSelection = val;
-            },
-            // 保存编辑
-            saveEdit() {
-                if (this.form.id > 0) {
-                    //编辑
-                    edit(this.form).then(response => {
-                        this.editVisible = false;
-                        this.$set(this.tableData, this.idx, this.form);
-                    })
-                    .catch(error => {
-                        console.log(error)
-                    })
-                } else {
-                    //添加
-                    add(this.form).then(response => {
-                        this.form.id = response
-                        this.editVisible = false;
-                        this.tableData.push(this.form)
-                    })
-                    .catch(error => {
-                        console.log(error)
-                    })
-                }
-            
-            },
-            // 确定删除
-            deleteRow(){
-                this.$message.error('暂不支持删除');
-                this.delVisible = false;
-            }
-        }
-    }
-
+import '@/components/page/BaseTable.css'
+import Menus from './Menus'
+export default Menus
 </script>
-
-<style scoped>
-    .handle-box {
-        margin-bottom: 20px;
-    }
-
-    .handle-select {
-        width: 120px;
-    }
-
-    .handle-input {
-        width: 300px;
-        display: inline-block;
-    }
-    .del-dialog-cnt{
-        font-size: 16px;
-        text-align: center
-    }
-    .table{
-        width: 100%;
-        font-size: 14px;
-    }
-    .red{
-        color: #ff0000;
-    }
-    .mr10{
-        margin-right: 10px;
-    }
-</style>

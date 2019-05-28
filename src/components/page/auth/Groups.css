@@ -1,0 +1,66 @@
+.el-cascader--small {
+    width: 100% !important;
+}
+
+.checkbox {
+    margin:5px 5px;
+}
+.menus-container {
+    padding: 20px;
+}
+.main-menus,
+.all {
+    overflow: auto;
+}
+.all {
+    width: 130px;
+}
+.checkbox input {
+     outline:none;
+ }
+.checkbox label {
+    display:inline-block;
+    width:20px;
+    height:20px;
+    line-height:20px;
+    text-align:center;
+    border:2px solid #3b8be6;
+    position:relative;
+    border-radius:3px;
+    font-family:"iconfont" !important;
+    font-size:16px;
+    font-style:normal;
+    cursor: pointer;
+    -webkit-font-smoothing:antialiased;
+}
+input {
+    width:45px;
+    height:45px;
+}
+input:checked+label {
+    /*当复选框选的的时候改变边框色*/
+    background:#3b8be6;
+}
+input+label .i {
+    color:#fff;
+}
+input:checked+label .i {
+    color:red;
+}
+input:checked+label {
+    /*当复选框选的的时候改变边框色*/
+    background:#3b8be6;
+}
+input+label:after {
+    content:'√';
+    color:#fff;
+}
+input:checked+label:after {
+    content:'√';
+    color:#fff;
+}
+.sub-menus {
+    width: 150px;
+    float: left;
+    overflow: auto;
+}
