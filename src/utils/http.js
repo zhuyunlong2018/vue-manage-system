@@ -8,11 +8,10 @@ import { Message } from 'element-ui'
  * http 请求封装库
  */
 
-
+//  console.log(process.env)
 // 创建axios实例
 const service = axios.create({
-  baseURL: "http://192.168.136.129:9502/", // api 的 base_url
-  // baseURL: "http://www.ahlww.cn/", // api 的 base_url
+  baseURL: process.env.VUE_APP_API, // api 的 base_url
   timeout: 5000 // 请求超时时间
 })
 

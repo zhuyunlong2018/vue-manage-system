@@ -128,12 +128,12 @@
     import VueCropper  from 'vue-cropperjs';
     import { getGroups } from '@/api/group'
     import { getContents, add, edit, changeStatus } from '@/api/extensionContext'
-
+    const BASE_API = process.env.VUE_APP_API
     export default {
         name: 'tabs',
         data() {
             return {
-                imgPre: 'http://192.168.136.129/Public/images/',
+                imgPre: BASE_API,
                 imgSrc: '',
                 dialogVisible: false,
                 message: 'first',
