@@ -74,6 +74,7 @@ export default {
             this.form = {
                 id: 0,
                 name: '',
+                password: '',
                 group_id: 0,
                 group_name: '',
                 status: 1,

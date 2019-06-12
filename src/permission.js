@@ -2,7 +2,7 @@ import router from './router'
 import store from './store'
 import { getToken } from '@/utils/auth' // getToken from cookie
 import { mainRouterMap } from './router'
-import { getStorage, setStorage, removeStorage } from '@/utils/storage'
+import { getStorage, setStorage } from '@/utils/storage'
 
 /**
  * 前端路由权限校验处理

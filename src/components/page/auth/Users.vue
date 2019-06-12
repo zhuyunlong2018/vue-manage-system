@@ -35,6 +35,9 @@
                     <el-cascader :options="options" expand-trigger="hover" v-model="form.selectedOptions" change-on-select
                     ></el-cascader>
                 </el-form-item>
+                <el-form-item label="密码">
+                    <el-input v-model="form.password"></el-input>
+                </el-form-item>
                 <el-form-item label="状态">
                     <el-radio-group v-model="form.status">
                         <el-radio :label=0>禁用</el-radio>

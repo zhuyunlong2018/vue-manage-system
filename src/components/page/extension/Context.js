@@ -6,7 +6,7 @@ export default {
     name: 'extensionContext',
     data() {
         return {
-            imgPre: BASE_API,
+            imgPre: BASE_API + 'Public/images/',
             imgSrc: '',
             dialogVisible: false,
             message: 'first',
