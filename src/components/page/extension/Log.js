@@ -1,3 +1,6 @@
+/**
+ * 推广--发送数据列表管理
+ */
 import { getLogs } from '@/api/extensionLog'
 export default {
     name: 'extensionLog',

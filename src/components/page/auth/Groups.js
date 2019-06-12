@@ -1,4 +1,6 @@
-
+/**
+ * 权限-分组管理
+ */
 import { getGroups, edit, add } from '@/api/group'
 import { getMenus, getMenuIdsByGroupId } from '@/api/menu'
 import { makeChildren, findParents, deepClone } from '@/utils'

@@ -1,3 +1,6 @@
+/**
+ * 推广--内容管理
+ */
 import VueCropper  from 'vue-cropperjs'
 import { getGroups } from '@/api/group'
 import { getContents, add, edit, changeStatus } from '@/api/extensionContext'

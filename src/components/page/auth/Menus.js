@@ -1,4 +1,6 @@
-
+/**
+ * 权限--菜单管理
+ */
 import { getMenus, add, edit } from '@/api/menu'
 export default {
     name: 'Menus',

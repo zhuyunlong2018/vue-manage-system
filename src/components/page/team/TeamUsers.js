@@ -1,11 +1,11 @@
 /**
- * 权限--用户管理
+ * 团队--成员管理
  */
-import { getUsers, edit, add } from '@/api/user'
+import { getUsers, editTeamUser, addTeamUser } from '@/api/user'
 import { getGroups } from '@/api/group'
 import { makeChildren, findParents, deepClone } from '@/utils'
 export default {
-    name: 'Users',
+    name: 'TeamUsers',
     data() {
         return {
             tableData: [],
@@ -42,7 +42,7 @@ export default {
         // 获取数据
         getData() {
             this.loading = true;
-            getUsers().then(response => {
+            getUsers({forTeam: true}).then(response => {
                 this.tableData = response
                 this.loading = false
             })
@@ -52,7 +52,7 @@ export default {
         },
         getGroups() {
             this.loading = true
-            getGroups().then(response => {
+            getGroups({ forTeam: true}).then(response => {
                 this.groupData = response
                 //将所有的分组整理为按层级数据
                 const options = makeChildren(deepClone(response), 0, data => {
@@ -121,7 +121,7 @@ export default {
             this.form.group_id = this.form.selectedOptions[this.form.selectedOptions.length-1]
             if (this.form.id > 0) {
                 //编辑
-                edit(this.form).then(response => {
+                editTeamUser(this.form).then(response => {
                     this.form.group_name = this.getGroupNameByGroupId(this.form.group_id)
                     this.$set(this.tableData, this.idx, this.form)
                     this.editVisible = false
@@ -133,7 +133,7 @@ export default {
                 })
             } else {
                 //添加
-                add(this.form).then(response => {
+                addTeamUser(this.form).then(response => {
                     this.form.id = response
                     this.form.group_name = this.getGroupNameByGroupId(this.form.group_id)
                     this.tableData.push(this.form)

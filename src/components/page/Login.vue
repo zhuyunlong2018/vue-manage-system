@@ -27,6 +27,9 @@
 </template>
 
 <script>
+/**
+ * 后台登录页面
+ */
 import { mapMutations, mapActions, mapGetters } from 'vuex'
 
 export default {
