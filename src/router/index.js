@@ -1,3 +1,6 @@
+/**
+ * vue-router
+ */
 import Vue from 'vue';
 import Router from 'vue-router';
 
@@ -49,16 +52,11 @@ export const mainRouterMap = [{
     ]
 }]
 
-
 export default new Router({
     // mode: 'history', // require service support
     scrollBehavior: () => ({ y: 0 }),
     routes: constantRouterMap
   })
-
-
-
-
 
 /*
 export default new Router({

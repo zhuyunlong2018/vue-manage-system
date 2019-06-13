@@ -1,4 +1,6 @@
-
+/**
+ * 路由菜单权限store模块
+ */
 import { toRoutes } from '@/utils'
 import { getUserRouter } from '@/api/menu'
 import { constantRouterMap } from '@/router'

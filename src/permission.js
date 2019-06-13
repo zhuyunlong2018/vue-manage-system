@@ -1,12 +1,11 @@
+/**
+ * 前端路由权限校验处理
+ */
 import router from './router'
 import store from './store'
 import { getToken } from '@/utils/auth' // getToken from cookie
 import { mainRouterMap } from './router'
 import { getStorage, setStorage } from '@/utils/storage'
-
-/**
- * 前端路由权限校验处理
- */
 
 const whiteList = ['/login', '/auth-redirect']// no redirect whitelist
 router.beforeEach((to, from, next) => {

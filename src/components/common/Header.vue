@@ -27,7 +27,7 @@
                 <!-- 用户名下拉菜单 -->
                 <el-dropdown class="user-name" trigger="click" @command="handleCommand">
                     <span class="el-dropdown-link">
-                        {{username}} <i class="el-icon-caret-bottom"></i>
+                        {{userInfo.name}} <i class="el-icon-caret-bottom"></i>
                     </span>
                     <el-dropdown-menu slot="dropdown">
                         <el-dropdown-item divided  command="loginout">退出登录</el-dropdown-item>
@@ -50,7 +50,7 @@
             }
         },
         computed:{
-            ...mapGetters(['username']),
+            ...mapGetters(['userInfo']),
         },
         methods:{
             ...mapActions(['logOut']),

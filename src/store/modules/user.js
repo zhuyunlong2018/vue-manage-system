@@ -3,15 +3,16 @@ import { getToken, setToken, removeToken } from '@/utils/auth'
 import { getStorage, setStorage, removeStorage } from '@/utils/storage'
 const user = {
   state: {
-    username: getStorage('username') ? (getStorage('username')) : '',
+    userInfo: getStorage('userInfo') ? (getStorage('userInfo')) : '',
+    groupname: '',
     token: getToken()
   },
   mutations: {
     SET_TOKEN: (state, token) => {
       state.token = token
     },
-    SET_USERNAME: (state, username) => {
-      state.username = username
+    SET_USER_INFO: (state, userInfo) => {
+      state.userInfo = userInfo
     }
   },
   actions: {
@@ -19,11 +20,16 @@ const user = {
     login({ commit }, userInfo) {
       return new Promise((resolve, reject) => {
         login(userInfo).then(response => {
+          const userInfo = {
+            id: response.id,
+            name: response.name,
+            groupId: response.group_id,
+            groupName: response.group_name
+          }
           setToken(response.token.access_token)
-          setStorage('username', response.name)
+          setStorage('userInfo', userInfo)
           commit('SET_TOKEN', response.token.access_token)
-          commit('SET_USERNAME', response.name)
-          // commit('SHOW_MESSAGE', '登录成功')
+          commit('SET_USER_INFO', userInfo)
           resolve(response)
         }).catch(error => {
           reject(error)
@@ -35,8 +41,8 @@ const user = {
     logOut({ commit }) {
       return new Promise(resolve => {
         commit('SET_TOKEN', '')
-        commit('SET_USERNAME', '')
-        removeStorage('username')
+        commit('SET_USER_INFO', '')
+        removeStorage('userInfo')
         removeStorage('now_router')
         removeToken()
         resolve()

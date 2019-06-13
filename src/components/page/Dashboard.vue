@@ -6,7 +6,8 @@
                     <div class="user-info">
                         <img src="../../assets/img/img.jpg" class="user-avator" alt="">
                         <div class="user-info-cont">
-                            <div class="user-info-name">{{username}}</div>
+                            <p >用户名：<span class="user-info-name">{{userInfo.name}}</span></p>
+                            <p>分组名：{{userInfo.groupName}}</p>
                         </div>
                     </div>
                     
@@ -17,6 +18,9 @@
 </template>
 
 <script>
+/**
+ * 首页
+ */
 import { mapGetters } from 'vuex'
     export default {
         name: 'dashboard',
@@ -24,7 +28,7 @@ import { mapGetters } from 'vuex'
             return {}
         },
         computed: {
-            ...mapGetters(['username']),
+            ...mapGetters(['userInfo']),
         },
         methods: {
             
@@ -111,7 +115,7 @@ import { mapGetters } from 'vuex'
         color: #999;
     }
 
-    .user-info-cont div:first-child {
+    .user-info-cont .user-info-name {
         font-size: 30px;
         color: #222;
     }

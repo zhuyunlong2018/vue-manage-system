@@ -1,8 +1,7 @@
-import Cookies from 'js-cookie'
-
 /**
  * 操作cookie工具库
  */
+import Cookies from 'js-cookie'
 
 const TokenKey = 'TV-CMS-Token'
 

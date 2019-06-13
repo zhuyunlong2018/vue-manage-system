@@ -1,12 +1,11 @@
+/**
+ * http 请求封装库
+ */
 import axios from 'axios'
 import store from '@/store'
 import router from '@/router'
 import { getToken } from '@/utils/auth'
 import { Message } from 'element-ui'
-
-/**
- * http 请求封装库
- */
 
 //  console.log(process.env)
 // 创建axios实例
