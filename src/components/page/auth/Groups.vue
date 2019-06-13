@@ -10,7 +10,10 @@
                 <el-button type="primary" icon="add" class="handle-del mr10" @click="handleAdd">添加分组</el-button>
                 <el-input v-model="select_word" placeholder="筛选关键词" class="handle-input mr10"></el-input>
             </div>
-            <el-table :data="data" border class="table" v-loading="loading" ref="multipleTable" @selection-change="handleSelectionChange">
+            <el-table :data="data" border class="table" ref="multipleTable" @selection-change="handleSelectionChange"
+            v-loading.fullscreen="loading" 
+            element-loading-text="拼命加载中"
+            element-loading-background="rgba(0, 0, 0, 0.3)">
                 <el-table-column prop="id" label="id" width="70" sortable></el-table-column>
                 <el-table-column prop="name" label="分组名" width="120">
                 </el-table-column>
@@ -60,7 +63,6 @@
 </template>
 
 <script>
-import '@/components/page/BaseTable.css'
 import './Groups.css'
 import Groups from './Groups'
 export default Groups

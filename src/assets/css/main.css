@@ -20,7 +20,6 @@ a {
     text-decoration: none
 }
 
-
 .content-box {
     position: absolute;
     left: 250px;
@@ -86,6 +85,39 @@ a {
 .move-enter,
 .move-leave {
     opacity: 0;
+}
+
+/*BaseTable*/
+
+.handle-box {
+    margin-bottom: 20px;
+}
+
+.handle-select {
+    width: 120px;
+}
+
+.handle-input {
+    width: 300px;
+    display: inline-block;
+}
+.del-dialog-cnt{
+    font-size: 16px;
+    text-align: center
+}
+.table{
+    width: 100%;
+    font-size: 14px;
+}
+.red{
+    color: #ff0000;
+}
+.mr10{
+    margin-right: 10px;
+}
+
+.el-loading-mask {
+    z-index: 2058 !important;
 }
 
 /*BaseForm*/

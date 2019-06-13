@@ -10,7 +10,10 @@
                 <el-input v-model="select_word" placeholder="筛选关键词" class="handle-input mr10"></el-input>
                 <!-- <el-button type="primary" icon="search" @click="search">搜索</el-button> -->
             </div>
-            <el-table :data="data" border class="table" v-loading="loading" ref="multipleTable">
+            <el-table :data="data" border class="table" ref="multipleTable"
+            v-loading.fullscreen="loading" 
+            element-loading-text="拼命加载中"
+            element-loading-background="rgba(0, 0, 0, 0.3)">
                 <el-table-column prop="id" label="流水id" sortable width="100">
                 </el-table-column>
                 <el-table-column prop="uid" label="推广员id" sortable width="100">
@@ -72,7 +75,6 @@
 </template>
 
 <script>
-import '@/components/page/BaseTable.css'
 import Log from './Log'
 export default Log
 </script>

@@ -11,6 +11,7 @@ export default {
         return {
             imgPre: BASE_API + 'Public/images/',
             imgSrc: '',
+            loading: false,
             dialogVisible: false,
             message: 'first',
             showHeader: false,
@@ -102,6 +103,7 @@ export default {
         },
         // 保存编辑
         saveEdit() {
+            this.loading = true
             if (this.form.id > 0) {
                 //编辑
                 edit(this.form).then(response => {
@@ -126,9 +128,11 @@ export default {
                         }
                     })
                     this.editVisible = false
+                    this.loading = false
                 })
                 .catch(error => {
                     console.log(error)
+                    this.loading = false
                 })
             } else {
                 //添加
@@ -137,9 +141,11 @@ export default {
                     this.form.group_name = this.getGroupNameByGroupId(this.form.group_id)
                     this.draft.push(this.form)
                     this.editVisible = false
+                    this.loading = false
                 })
                 .catch(error => {
                     console.log(error)
+                    this.loading = false
                 })
             }
         },
@@ -159,6 +165,7 @@ export default {
             })
         },
         getList() {
+            this.loading = true
             getContents().then(response => {
                 response.forEach(element => {
                     switch(element.status) {
@@ -172,9 +179,11 @@ export default {
                             this.recycle.push(element)
                     }
                 });
+                this.loading = false
             })
             .catch(error => {
                 console.log(error)
+                this.loading = false
             })
         },
         setImage(e){

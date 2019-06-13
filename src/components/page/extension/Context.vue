@@ -9,7 +9,9 @@
             <div class="handle-box">
                 <el-button type="primary" icon="add" class="handle-del mr10" @click="handleAdd">添加草稿内容</el-button>
             </div>
-            <el-tabs v-model="message">
+            <el-tabs v-model="message" v-loading.fullscreen="loading" 
+            element-loading-text="拼命加载中"
+            element-loading-background="rgba(0, 0, 0, 0.3)">
                 <el-tab-pane :label="`当前推广内容(${normal.length})`" name="first">
                     <el-table :data="normal" :show-header="false" style="width: 100%">
                         <el-table-column prop="group_name" width="150"></el-table-column>

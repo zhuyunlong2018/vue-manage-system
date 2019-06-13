@@ -59,7 +59,7 @@
                 if(command == 'loginout'){
                     this.logOut().then(() => {
                         localStorage.removeItem('role')
-                        this.$router.push('/login');
+                        window.location.reload()
                     })
                     .catch();
                 }
