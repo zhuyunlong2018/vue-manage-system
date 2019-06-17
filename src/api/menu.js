@@ -1,7 +1,7 @@
 import http from '@/utils/http'
 
 //获取前端路由
-export const getUserRouter = params => http.get('Admin/Menus/getRouter',params);
+export const getUserRouter = params => http.get('Admin/Menus/getRouter',params)
 
 //获取系统所有菜单路由
 export const getMenus = params => http.get('Admin/Menus/getMenus', params)

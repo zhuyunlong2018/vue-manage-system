@@ -3,7 +3,7 @@
  */
 import VueCropper  from 'vue-cropperjs'
 import { getGroups } from '@/api/group'
-import { getContents, add, edit, changeStatus } from '@/api/extensionContext'
+import { getContents, add, edit, changeStatus } from '@/api/extension'
 const BASE_API = process.env.VUE_APP_API
 export default {
     name: 'extensionContext',

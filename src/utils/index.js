@@ -64,7 +64,7 @@ export function deepClone(source) {
  * @param  idKey 数据本身的ID
  * @param  pidKey 数据关联自身的上级ID外键
  */
-export function makeChildren(arr, id=0,call=null, idKey='id', pidKey='pid'){
+export function makeChildren(arr, id = 0, call = null, idKey = 'id', pidKey = 'pid') {
   const list = []
   for (const data of arr) {
     if (data[pidKey] === id) {
@@ -85,14 +85,30 @@ export function makeChildren(arr, id=0,call=null, idKey='id', pidKey='pid'){
  * @param idKey 
  * @param pidKey 
  */
-export function findParents(arr, id=0, idKey='id', pidKey='pid') {
+export function findParents(arr, id = 0, idKey = 'id', pidKey = 'pid') {
   const list = []
   let data = []
   arr.forEach(element => {
-      if (element[idKey] == id && id !== 0) {
-          list.push(id)
-          data = findParents(arr, element[pidKey])
-      }
+    if (element[idKey] == id && id !== 0) {
+      list.push(id)
+      data = findParents(arr, element[pidKey])
+    }
   });
   return data.concat(list);
+}
+
+/**
+ * 随机生成定长的字符串
+ * @param {number} len 
+ */
+export function randomString(len) {
+  len = len || 32;
+  /****默认去掉了容易混淆的字符oOLl,9gq,Vv,Uu,I1****/
+  const chars = 'ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678';
+  const maxPos = chars.length;
+  let str = '';
+  for (let i = 0; i < len; i++) {
+    str += chars.charAt(Math.floor(Math.random() * maxPos));
+  }
+  return str;
 }
